@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import {connect} from 'react-redux';
 import * as usersActions from '../../actions/usersActions';
 import PageLoading from '../../pages/PageLoading';
-
+import PageError from '../../pages/PageError';
 
 class Usuarios extends Component{
 
@@ -22,6 +22,10 @@ class Usuarios extends Component{
     render(){
         if(this.props.loading){
             return <PageLoading />
+        }
+        if(this.props.error){
+            
+            return <PageError error_msg={this.props.error}/>
         }
         return(
            <div className="container">
