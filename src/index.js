@@ -10,6 +10,8 @@ import {Provider} from 'react-redux';
 import reducers from './reducers';
 import reduxThunk from 'redux-thunk';
 
+import './css/iconos/eye.css';
+
 const store = createStore(
   reducers, // son todos los reducers
   {}, // estado inicial

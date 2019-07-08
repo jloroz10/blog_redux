@@ -5,8 +5,6 @@ export const traerTodos = () => async(dispatch) =>{
     
     dispatch({
         type:LOADING_DATA,
-        loading:true,
-        error:null
     })
     try{
         const response = await axios.get('https://jsonplaceholder.typicode.com/users');
@@ -14,14 +12,13 @@ export const traerTodos = () => async(dispatch) =>{
         dispatch({
             type:TREAR_TODOS,
             payload:response.data,
-            loading:false
         })
 
     }catch(e){
         dispatch({
             type:ERROR,
-            loading:false,
-            error:e.message
+            payload:'Algo salio mal, intente mas tarde'
+            
         })
     }
 }

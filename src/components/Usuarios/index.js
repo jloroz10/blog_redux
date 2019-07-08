@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import * as usersActions from '../../actions/usersActions';
 import PageLoading from '../../pages/PageLoading';
 import PageError from '../../pages/PageError';
+import UsersDetails from './UsersDetails.js';
 
 class Usuarios extends Component{
 
@@ -10,15 +11,6 @@ class Usuarios extends Component{
         this.props.traerTodos();
     }
 
-    ponerFilas = () =>(
-        this.props.users.map(usuario =>(
-          <div className="row" key={usuario.id}>
-          <div className="col-4 d-flex justify-content-center ">{usuario.name}</div>
-          <div className="col-4 d-flex justify-content-center">{usuario.email}</div>
-          <div className="col-4 d-flex justify-content-center">{usuario.website}</div>
-        </div>
-        ))
-     );
     render(){
         if(this.props.loading){
             return <PageLoading />
@@ -28,22 +20,11 @@ class Usuarios extends Component{
             return <PageError error_msg={this.props.error}/>
         }
         return(
-           <div className="container">
-               <div className="row mb-2 mt-3">
-                   <div className="col-4 d-flex justify-content-center text-info">
-                        Name
-                   </div>
-                   <div className="col-4 d-flex justify-content-center text-info">
-                        Email
-                   </div>
-                   <div className="col-4 d-flex justify-content-center text-info">
-                        Website
-                   </div>
-               </div>
-
-             {this.ponerFilas()}
-
-           </div>
+            <React.Fragment>
+                 <h1 className="col-12 d-flex justify-content-center mt-3">Users</h1>
+                 <UsersDetails />
+            </React.Fragment>
+      
         )
     }
 }

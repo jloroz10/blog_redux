@@ -9,11 +9,11 @@ const INITIAL_STATE={
 export default(state = INITIAL_STATE,action) =>{
     switch(action.type){
         case TREAR_TODOS:
-            return {...state,users:action.payload,loading:action.loading};
+            return {...state,users:action.payload,loading:false};
         case LOADING_DATA:
-            return {...state,loading:action.loading,error:action.error};
+            return {...state,loading:true,error:null};
         case ERROR:
-            return {...state,loading:action.loading,error:action.error};
+            return {...state,loading:false,error:action.payload};
         default: return state;
     }
 }
