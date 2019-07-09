@@ -1,4 +1,4 @@
-import {TREAR_TODOS,LOADING_DATA,ERROR} from '../types/publicationsTypes';
+import {TREAR_TODOS,LOADING_DATA,TRAER_POR_USERID,ERROR} from '../types/publicationsTypes';
 
 const INITIAL_STATE={
     publications:[],
@@ -15,10 +15,18 @@ export default(state = INITIAL_STATE,action) =>{
              return {...state,
                      publications:action.payload,
                      loading:false};
+
+         case TRAER_POR_USERID:
+             return {...state,
+                publications:action.payload,
+                loading:false};
+
          case LOADING_DATA:
              return {...state,loading:true,error:null};
+
          case ERROR:
              return {...state,loading:false,error:action.payload};
+
         default: return state;
     }
 }

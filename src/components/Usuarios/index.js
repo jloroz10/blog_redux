@@ -8,7 +8,8 @@ import UsersDetails from './UsersDetails.js';
 class Usuarios extends Component{
 
     componentDidMount(){
-        this.props.traerTodos();
+        if(!this.props.users.length)
+            this.props.traerTodos();
     }
 
     render(){

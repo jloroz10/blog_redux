@@ -11,30 +11,33 @@ import PageError from '../../pages/PageError';
 //por ende tenemos que identificarlos para poder acceder a ambos
 const {traerTodos: usersTraerTodos} = usersActions;
 const {traerTodos: publicationsTraerTodos} = publicationsActions;
+const {traerPorUserId: publicationsTraerPorUserId} = publicationsActions;
 
 class Publications extends Component{
-
-    componentDidMount(){
+//el async sirve para saber que hay llamdas asincronas adentro y hasta que 
+//termine uno puede comenzar el siguiente proceso
+  async  componentDidMount(){
         //se tratara de leer la informacion de los usuarios solo cuando este vacio el arrlego,
         //si lo esta quiere decir que se refresco la pagina estando en publications
         if(!this.props.usersReducer.users.length){
-            console.log('users is empty');
-            this.props.usersTraerTodos();
+           await this.props.usersTraerTodos();
         }
+         this.props.publicationsTraerPorUserId(this.props.match.params.index);
     }
 
     mostrarUserName(){
-        console.log(this.props);
+      
         if(this.props.usersReducer.users.length>0){
             const userId = this.props.match.params.index;
-            console.log(this.props.usersReducer.users[userId].name);
+            // console.log(this.props.usersReducer.users[userId].name);
             return  this.props.usersReducer.users[userId].name;
             
         }
         else return '';
     }
     render(){
-        if(this.props.loading){
+        console.log(this.props)
+        if(this.props.publicationsReducer.loading || this.props.usersReducer.loading){
            return <PageLoading />
         }
         return(     
@@ -55,7 +58,8 @@ const mapStateToProps = ({usersReducer,publicationsReducer}) =>{
 //pero es mejor traer las funciones individualemente
 const mapDispatchToProps = {
     usersTraerTodos,
-    publicationsTraerTodos
+    publicationsTraerTodos,
+    publicationsTraerPorUserId
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Publications);
