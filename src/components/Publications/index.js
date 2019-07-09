@@ -6,6 +6,7 @@ import * as publicationsActions from '../../actions/publicationsActions';
 
 import PageLoading from '../../pages/PageLoading';
 import PageError from '../../pages/PageError';
+import Usuarios from '../Usuarios';
 
 //cuando hay 2 metodos con el mismo nombre en 2 reducers no se traen los 2 metodos
 //por ende tenemos que identificarlos para poder acceder a ambos
@@ -16,6 +17,7 @@ class Publications extends Component{
 //el async sirve para saber que hay llamdas asincronas adentro y hasta que 
 //termine uno puede comenzar el siguiente proceso
   async  componentDidMount(){
+      console.log('entro a componentDidMountS')
       const {
           publicationsTraerPorUserId,
           usersTraerTodos,
@@ -31,11 +33,13 @@ class Publications extends Component{
         if(this.props.usersReducer.error)
             return;
 
-        if(!('publications_key' in this.props.usersReducer.users[index]))
-             publicationsTraerPorUserId(index);
+        if(!('publications_key' in this.props.usersReducer.users[index])){
+            console.log('entro a buscar pubs')
+            publicationsTraerPorUserId(index);
+        }
     }
 
-    mostrarUserName(){
+    displayUserName(){
       
         //how this method is being called from render() we can destructure the userReducer
         const {
@@ -59,12 +63,52 @@ class Publications extends Component{
             
     }
 
-  
+    displayPublications = () =>{
+        const {
+            publicationsReducer,
+            usersReducer,
+            usersReducer:{users},
+            match:{params:{index }}
+        } = this.props;
+
+
+        if(!users.length) return;
+        if(usersReducer.error) return;
+
+        if(publicationsReducer.error){
+            return <PageError error_msg={usersReducer.error} />
+        }
+        if(!publicationsReducer.publications.length || publicationsReducer.loading)
+           return <PageLoading />
+
+        if(!('publications_key' in this.props.usersReducer.users[index]))return;
+        
+        console.log( usersReducer.users[index].publications_key);
+
+        const {publications_key} = users[index];
+
+        const publications = publicationsReducer.publications[publications_key];
+        
+
+        return( <div className="container mt-5">
+                   {publications.map(publication =>{
+                        return(<div key={publication.id}>
+                                    <h4>{publication.title}</h4>
+                                    <p>{publication.body}</p>
+                                </div>
+                            );
+                        })
+                    }
+                </div>
+        );
+        
+    }
     render(){
-      
+        console.log('render');
         return(     
             <div className="container">
-                {this.mostrarUserName()}
+                {this.displayUserName()}
+                {this.displayPublications()}
             </div>
 
        );
