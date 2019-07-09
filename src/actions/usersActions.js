@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {TREAR_TODOS,LOADING_DATA,ERROR} from '../types/usersTypes';
+import {TRAER_TODOS,LOADING_DATA,ERROR} from '../types/usersTypes';
 
 export const traerTodos = () => async(dispatch) =>{
     
@@ -10,7 +10,7 @@ export const traerTodos = () => async(dispatch) =>{
         const response = await axios.get('https://jsonplaceholder.typicode.com/users');
     
         dispatch({
-            type:TREAR_TODOS,
+            type:TRAER_TODOS,
             payload:response.data,
         })
 

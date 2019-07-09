@@ -1,4 +1,4 @@
-import {TREAR_TODOS,LOADING_DATA,ERROR} from '../types/usersTypes';
+import {TRAER_TODOS,LOADING_DATA,ERROR} from '../types/usersTypes';
 
 const INITIAL_STATE={
     users:[],
@@ -8,7 +8,7 @@ const INITIAL_STATE={
 
 export default(state = INITIAL_STATE,action) =>{
     switch(action.type){
-        case TREAR_TODOS:
+        case TRAER_TODOS:
             return {...state,users:action.payload,loading:false};
         case LOADING_DATA:
             return {...state,loading:true,error:null};

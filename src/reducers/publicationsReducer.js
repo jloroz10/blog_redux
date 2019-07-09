@@ -11,11 +11,6 @@ export default(state = INITIAL_STATE,action) =>{
     //dos reducers los 2 se ejecutaran
     //se recomienda tener 2 achivos types para difereciar los casos
     switch(action.type){
-         case TREAR_TODOS:
-             return {...state,
-                     publications:action.payload,
-                     loading:false};
-
          case TRAER_POR_USERID:
              return {...state,
                 publications:action.payload,
